@@ -34,6 +34,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
+  int score = 0;
+
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
@@ -43,7 +45,7 @@ class _QuizPageState extends State<QuizPage> {
           context: context,
           type: AlertType.success,
           title: "Finished!",
-          desc: "You have reached the end of quiz. Want to restart?",
+          desc: "\nTotal Score: $score",
           buttons: [
             DialogButton(
               child: Text(
@@ -64,12 +66,14 @@ class _QuizPageState extends State<QuizPage> {
           ],
         ).show();
         scoreKeeper = [];
+        score = 0;
       } else {
         if (userPickedAnswer == correctAnswer) {
           scoreKeeper.add(Icon(
             Icons.check,
             color: Colors.green,
           ));
+          score++;
         } else {
           scoreKeeper.add(Icon(
             Icons.close,
